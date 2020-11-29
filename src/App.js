@@ -19,10 +19,8 @@ function App() {
 
   //make call to database
   useEffect(() => { 
-	const response = await
-	url = {"scares-api-dev.us-east-1.elasticbeanstalk.com/getdata?user_id=" +
-		this.state.userid + "&time=" + new Date().toLocaleString() + "Z02"}
-	fetch(url, {
+	url = {"scares-api-dev.us-east-1.elasticbeanstalk.com/getdata?user_id=" + this.state.userid + "&time=" + new Date().toLocaleString() + "Z02"}
+	const response = await fetch(url, {
 		headers: {
 			'Authorization' : 'Token'
 		}
