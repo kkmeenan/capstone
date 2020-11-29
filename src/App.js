@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 function App() {
   const [error, setError] = useState(null)
@@ -6,6 +6,7 @@ function App() {
   const [userid, setID] = useState([])
   const [sdata, setSdata] = useState([]);
   const IDRef = useRef()
+  const APIURL = "scares-api-dev.us-east-1.elasticbeanstalk.com/getdata?user_id="
 
   //get the userID typed into the text box
   function handleID() {
@@ -19,12 +20,11 @@ function App() {
 
   //make call to database
   useEffect(() => { 
-	url = {"scares-api-dev.us-east-1.elasticbeanstalk.com/getdata?user_id=" + this.state.userid + "&time=" + new Date().toLocaleString() + "Z02"}
-	const response = await fetch(url, {
+	fetch(`${APIURL}${userid}&time=${new Date().toISOString}`, {
 		headers: {
 			'Authorization' : 'Token'
 		}
-	}
+	})
 	.then(res => res.json())
 	.then(
 		(result) => {
@@ -46,9 +46,9 @@ function App() {
 		</div>
 		<input ref={IDRef} type="text" />
 		<button onClick ={handleID}>Enter ID</button>
-		<res>
-		Stress Level: {sdata}
-		</res>
+		<li>
+		User ID Entered: {userid}
+		</li>
 	</>
    )
 }
